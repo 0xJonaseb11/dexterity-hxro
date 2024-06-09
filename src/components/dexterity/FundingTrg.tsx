@@ -20,6 +20,10 @@ export const FundingTrader: FC = () => {
         try {
 
           // Deposit
+          setIsLoading(true);
+          setDepositStatus('processing');
+          await trader.deposit(dexterity.Fractional.New(amount, 0), null);
+
 
         } catch (error: any) {
             setDepositStatus('failed');
@@ -34,6 +38,10 @@ export const FundingTrader: FC = () => {
         try {
 
           // Withdraw
+          setIsLoading(true);
+          setWithdrawStatus('processing');
+          await trader.withdraw(dexterity.Fractional.New(amount, 0));
+
 
         } catch (error: any) {
             setWithdrawStatus('failed');
