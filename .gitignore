@@ -3,3 +3,7 @@ node_modules/
 .next/*
 .next/
 .env
+
+cache
+build
+.env

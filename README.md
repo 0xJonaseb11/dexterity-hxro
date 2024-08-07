@@ -5,8 +5,8 @@ The Hxro Dexterity dApp Scaffold repos are meant to house good starting scaffold
 ## Getting Started
 
 ```bash
-git clone https://github.com/Calyptus-Learn/dexterity-hxro
-cd dexterity-scaffold
+git clone https://github.com/0xJonaseb11/dexterity-hxro.git
+cd dexterity-hxro
 npm install
 # or
 yarn install
@@ -79,7 +79,7 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 Each Scaffold will contain at least the following features:
 
-```
+```sh
 Wallet Integration with Auto Connect / Refresh
 
 State Management
@@ -99,14 +99,13 @@ Clean Simple Styling
 Notifications (optional): Example of using a notification system
 
 ```
-
 A Hxro Dexterity Components Repo will be released in the near future to house a common components library.
 
 ### Structure
 
 The scaffold project structure may vary based on the front-end framework being utilized. Below is an example structure for the Next js Scaffold.
 
-```
+```sh
 ├── public : publicly hosted files
 ├── src : primary code folders and files
 │   ├── components: should house anything considered a reusable UI component
