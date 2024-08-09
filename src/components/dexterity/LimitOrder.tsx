@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useState, useCallback, useMemo } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useManifest, useTrader, useProduct } from 'contexts/DexterityProviders';
 import { notify } from '../../utils/notifications';
@@ -12,7 +12,7 @@ export const PlaceLimitOrder: FC = () => {
     const { publicKey } = useWallet();
     const { manifest } = useManifest();
     const { trader } = useTrader();
-    const { selectedProduct } = useProduct()
+    const { selectedProduct } = useProduct();
     const [price, setPrice] = useState<number | null>(null);
     const [size, setSize] = useState<number | null>(null);
     const [orderType, setOrderType] = useState<'Long' | 'Short' | 'None'>('None');
@@ -24,8 +24,8 @@ export const PlaceLimitOrder: FC = () => {
     const callbacks = {
         onGettingBlockHashFn: () => {},
         onGotBlockHashFn: () => {},
-        onConfirm: (txn: string) => notify({ type: 'success', message: 'Order Placed Successfully!', txid: txn })
-    }
+        onConfirm: (txn: string) => notify({ type: 'success', message: 'Order Placed Successfully!', txid: txn }),
+    };
 
     const handlePlaceOrder = useCallback(async () => {
         if (!price || !size || !publicKey || !manifest || !selectedProduct) return;
@@ -33,8 +33,8 @@ export const PlaceLimitOrder: FC = () => {
         // Placing order logic goes here
         const priceFraction = dexterity.Fractional.New(price, 0);
         const sizeFraction = dexterity.Fractional.New(size * 10 ** selectedProduct.exponent, selectedProduct.exponent);
-        const referralTrg = network === 'devnet' ? process.env.NEXT_PUBLIC_REFERRER_TRG_DEVNET! : process.env.NEXT_PUBLIC_REFERRER_TRG_MAINNET!
-        const referralFee = process.env.NEXT_PUBLIC_REFERRER_BPS
+        const referralTrg = network === 'devnet' ? process.env.NEXT_PUBLIC_REFERRER_TRG_DEVNET! : process.env.NEXT_PUBLIC_REFERRER_TRG_MAINNET!;
+        const referralFee = process.env.NEXT_PUBLIC_REFERRER_BPS;
 
         try {
             setIsLoading(true);
@@ -51,32 +51,32 @@ export const PlaceLimitOrder: FC = () => {
                 null,
                 null
             );
-           // Get Products Array
-           /*prices */const products = Array.from(dexterity.Manifest.GetProductsOfMPG(trader.mpg));
-           // Get Update Products Mark Prices Instruction
-           const updateMarkIx = trader.getUpdateMarkPricesIx(products); 
 
-            // Submit the bundled instructions 
-            // (updateMarkIx has to be first in the array)
+            // Get Products Array
+            const products = Array.from(dexterity.Manifest.GetProductsOfMPG(trader.mpg));
+
+            // Get Update Products Mark Prices Instruction
+            const updateMarkIx = trader.getUpdateMarkPricesIx(products);
+
+            // Submit the bundled instructions (updateMarkIx has to be first in the array)
             await trader.sendTx([updateMarkIx, orderIx], null);
 
             setIsSuccess(true);
         } catch (error: any) {
             setIsSuccess(false);
             notify({ type: 'error', message: 'Placing order failed!', description: error?.message });
-            console.error(error)
+            console.error(error);
         } finally {
             notify({ type: 'success', message: `Limit ${orderType} Order Placed Successfully!` });
             setIsLoading(false);
-
-
+        }
     }, [price, size, orderType, publicKey, manifest, trader, selectedProduct]);
 
     const isFormValid = useMemo(() => price !== null && size !== null && orderType !== 'None', [price, size, orderType]);
 
     return (
         <div className="flex flex-col justify-center items-center border border-white rounded-lg p-4 mt-4">
-            <h1 className='text-2xl mb-4'>Place a Limit Order</h1>
+            <h1 className="text-2xl mb-4">Place a Limit Order</h1>
 
             <div className="w-full flex flex-col items-center">
                 <label htmlFor="priceInput" className="text-xl font-semibold mb-1">Price</label>
@@ -138,5 +138,4 @@ export const PlaceLimitOrder: FC = () => {
             />
         </div>
     );
-
 };

@@ -29,9 +29,11 @@
     "next-transpile-modules": "^10.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "text-encoding-utf-8": "^1.0.2",
     "zustand": "^3.6.9"
   },
   "devDependencies": {
+    "@next/swc-win32-x64-msvc": "^14.2.14",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.27",
     "autoprefixer": "^10.4.2",
